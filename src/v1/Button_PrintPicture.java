@@ -11,14 +11,14 @@ import java.io.IOException;
  * *v1**
  * *FinalProject** 
  * *ThomasR**
- * *11142013:1355**
+ * *11142013:1712**
  */
-public class ClearScreenBtn extends JButton {
-  private BufferedImage clear;
+public class Button_PrintPicture extends JButton {
+  private BufferedImage printDrawnImage;
 
-  public ClearScreenBtn() {
+  public Button_PrintPicture() {
     try {
-      this.clear = ImageIO.read(new File("clear.png"));
+      this.printDrawnImage = ImageIO.read(new File("print.png"));
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -26,6 +26,6 @@ public class ClearScreenBtn extends JButton {
 
   public void paint(Graphics g) {
     super.paint(g);
-    g.drawImage(this.clear, 0, 0, getWidth() - 1, getHeight() - 1, 0, 0, 256, 256, null);
+    g.drawImage(this.printDrawnImage, 0, 0, this.getWidth(), this.getHeight(), 0, 0, 256, 256, null);
   }
 }

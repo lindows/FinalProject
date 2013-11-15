@@ -7,11 +7,11 @@ import java.awt.*;
  * *v1**
  * *FinalProject** 
  * *ThomasR**
- * *11142013:1411**
+ * *11142013:1415**
  */
-public class DrawRectBtn extends JButton {
+public class Button_DrawOval extends JButton {
   public void paint(Graphics g) {
     super.paint(g);
-    g.drawRect(5, 5, this.getWidth() - 10, this.getHeight() - 10);
+    g.drawOval(5, 5, this.getWidth() - 5, this.getHeight() - 5);
   }
 }

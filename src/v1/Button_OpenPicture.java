@@ -13,18 +13,18 @@ import java.io.IOException;
  * *ThomasR**
  * *11142013:1707**
  */
-public class OpenPictureBtn extends JButton {
+public class Button_OpenPicture extends JButton {
   private BufferedImage openedData;
 
-  public OpenPictureBtn(){
-    try{
+  public Button_OpenPicture() {
+    try {
       this.openedData = ImageIO.read(new File("open.png"));
-    }catch (IOException exception){
+    } catch (IOException exception) {
       exception.printStackTrace();
     }
   }
 
-  public void print(Graphics g){
+  public void print(Graphics g) {
     super.paint(g);
     g.drawImage(this.openedData, 0, 0, getWidth(), getHeight(), 0, 0, 256, 256, null);
   }

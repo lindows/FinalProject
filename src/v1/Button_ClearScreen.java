@@ -11,14 +11,14 @@ import java.io.IOException;
  * *v1**
  * *FinalProject** 
  * *ThomasR**
- * *11142013:1358**
+ * *11142013:1355**
  */
-public class SavePictureBtn extends JButton {
-  private BufferedImage save;
+public class Button_ClearScreen extends JButton {
+  private BufferedImage clear;
 
-  public SavePictureBtn() {
+  public Button_ClearScreen() {
     try {
-      this.save = ImageIO.read(new File("save.png"));
+      this.clear = ImageIO.read(new File("clear.png"));
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -26,6 +26,6 @@ public class SavePictureBtn extends JButton {
 
   public void paint(Graphics g) {
     super.paint(g);
-    g.drawImage(this.save, 0, 0, this.getWidth() - 1, this.getHeight() - 1, 0, 0, 256, 256, null);
+    g.drawImage(this.clear, 0, 0, getWidth() - 1, getHeight() - 1, 0, 0, 256, 256, null);
   }
 }
