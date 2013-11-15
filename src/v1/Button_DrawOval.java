@@ -12,6 +12,6 @@ import java.awt.*;
 public class Button_DrawOval extends JButton {
   public void paint(Graphics g) {
     super.paint(g);
-    g.drawOval(5, 5, this.getWidth() - 5, this.getHeight() - 5);
+    g.drawOval(5, 5, this.getWidth() - 10, this.getHeight() - 10);
   }
 }

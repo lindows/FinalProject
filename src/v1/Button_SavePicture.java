@@ -18,7 +18,7 @@ public class Button_SavePicture extends JButton {
 
   public Button_SavePicture() {
     try {
-      this.save = ImageIO.read(new File("save.png"));
+      this.save = ImageIO.read(new File("/assets/save.png"));
     } catch (IOException e) {
       e.printStackTrace();
     }

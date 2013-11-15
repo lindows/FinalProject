@@ -12,6 +12,6 @@ import java.awt.*;
 public class Button_DrawLine extends JButton {
   public void paint(Graphics g) {
     super.paint(g);
-    g.drawLine(5, 5, this.getWidth() - 5, this.getHeight() - 5);
+    g.drawLine(5, 5, this.getWidth() - 10, this.getHeight() - 10);
   }
 }

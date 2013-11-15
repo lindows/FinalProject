@@ -18,7 +18,7 @@ public class Button_DrawFree extends JButton {
 
   public Button_DrawFree() {
     try {
-      this.IMG_freehand = ImageIO.read(new File("freehand.png"));
+      this.IMG_freehand = ImageIO.read(new File("/assets/freedraw.png"));
     } catch (IOException exception) {
       exception.printStackTrace();
     }

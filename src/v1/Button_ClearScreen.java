@@ -18,14 +18,14 @@ public class Button_ClearScreen extends JButton {
 
   public Button_ClearScreen() {
     try {
-      this.clear = ImageIO.read(new File("clear.png"));
-    } catch (IOException e) {
-      e.printStackTrace();
+      clear = ImageIO.read(new File("/assets/clear.png"));
+    } catch (IOException exception) {
+      exception.printStackTrace();
     }
   }
 
   public void paint(Graphics g) {
     super.paint(g);
-    g.drawImage(this.clear, 0, 0, getWidth() - 1, getHeight() - 1, 0, 0, 256, 256, null);
+    g.drawImage(clear, 0, 0, getWidth() - 1, getHeight() - 1, 0, 0, 256, 256, null);
   }
 }

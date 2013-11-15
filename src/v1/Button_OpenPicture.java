@@ -18,7 +18,7 @@ public class Button_OpenPicture extends JButton {
 
   public Button_OpenPicture() {
     try {
-      this.openedData = ImageIO.read(new File("open.png"));
+      this.openedData = ImageIO.read(new File("/assets/open.png"));
     } catch (IOException exception) {
       exception.printStackTrace();
     }
