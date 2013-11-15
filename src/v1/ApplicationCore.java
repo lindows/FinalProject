@@ -1,9 +1,15 @@
 package v1;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.io.File;
 
 /**
  * *v1**
@@ -37,6 +43,14 @@ public class ApplicationCore {
     $$$setupUI$$$();
   }
 
+  public static void main(String[] args) {
+    JFrame frame = new JFrame("ApplicationCore");
+    frame.setContentPane(new ApplicationCore().panel1);
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.pack();
+    frame.setVisible(true);
+  }
+
   public ApplicationCore() {
     Button_SavePicture.addActionListener(new ActionListener() {
       /**
@@ -44,7 +58,7 @@ public class ApplicationCore {
        */
       @Override
       public void actionPerformed(ActionEvent e) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        SavePicture();
       }
     });
     Button_OpenPicture.addActionListener(new ActionListener() {
@@ -53,7 +67,7 @@ public class ApplicationCore {
        */
       @Override
       public void actionPerformed(ActionEvent e) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        OpenPicture();
       }
     });
     Button_ClearPicture.addActionListener(new ActionListener() {
@@ -62,7 +76,7 @@ public class ApplicationCore {
        */
       @Override
       public void actionPerformed(ActionEvent e) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        ClearPicture();
       }
     });
     Button_DrawFree.addActionListener(new ActionListener() {
@@ -71,7 +85,8 @@ public class ApplicationCore {
        */
       @Override
       public void actionPerformed(ActionEvent e) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        // TODO
+        // Call drawing object to do free hand
       }
     });
     Button_DrawLine.addActionListener(new ActionListener() {
@@ -80,7 +95,8 @@ public class ApplicationCore {
        */
       @Override
       public void actionPerformed(ActionEvent e) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        // TODO
+        // Call drawing object to do Lines
       }
     });
     Button_DrawOval.addActionListener(new ActionListener() {
@@ -89,7 +105,8 @@ public class ApplicationCore {
        */
       @Override
       public void actionPerformed(ActionEvent e) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        // TODO
+        // Call drawing object to do Ovals
       }
     });
     Button_DrawRect.addActionListener(new ActionListener() {
@@ -98,11 +115,112 @@ public class ApplicationCore {
        */
       @Override
       public void actionPerformed(ActionEvent e) {
+        // TODO
+        // Call drawing object to do Rect
+      }
+    });
+    textureRadioButton.addActionListener(new ActionListener() {
+      /**
+       * Invoked when an action occurs.
+       */
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        //To change body of implemented methods use File | Settings | File Templates.
+      }
+    });
+    filledRadioButton.addActionListener(new ActionListener() {
+      /**
+       * Invoked when an action occurs.
+       */
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        //To change body of implemented methods use File | Settings | File Templates.
+      }
+    });
+    redSlider.addChangeListener(new ChangeListener() {
+      /**
+       * Invoked when the target of the listener has changed its state.
+       *
+       * @param e a ChangeEvent object
+       */
+      @Override
+      public void stateChanged(ChangeEvent e) {
+        //To change body of implemented methods use File | Settings | File Templates.
+      }
+    });
+    greenSlider.addChangeListener(new ChangeListener() {
+      /**
+       * Invoked when the target of the listener has changed its state.
+       *
+       * @param e a ChangeEvent object
+       */
+      @Override
+      public void stateChanged(ChangeEvent e) {
+        //To change body of implemented methods use File | Settings | File Templates.
+      }
+    });
+    blueSlider.addChangeListener(new ChangeListener() {
+      /**
+       * Invoked when the target of the listener has changed its state.
+       *
+       * @param e a ChangeEvent object
+       */
+      @Override
+      public void stateChanged(ChangeEvent e) {
+        //To change body of implemented methods use File | Settings | File Templates.
+      }
+    });
+    alphaSlider.addChangeListener(new ChangeListener() {
+      /**
+       * Invoked when the target of the listener has changed its state.
+       *
+       * @param e a ChangeEvent object
+       */
+      @Override
+      public void stateChanged(ChangeEvent e) {
         //To change body of implemented methods use File | Settings | File Templates.
       }
     });
   }
 
+  private void ClearPicture() {
+  }
+  private void OpenPicture() {
+    JFileChooser jfc = new JFileChooser(".");
+
+    MyFileFilter ff = new MyFileFilter();
+    jfc.setFileFilter(ff);
+    if (jfc.showOpenDialog(null) == 0) {
+
+      try {
+        File f = jfc.getSelectedFile();
+        this.bg = ImageIO.read(f);
+
+        repaint();
+      } catch (Exception e1) {
+
+        System.out.println("Error loading file");
+        e1.printStackTrace();
+      }
+    }
+  }
+  private void SavePicture() {
+    JFileChooser jfc = new JFileChooser(".");
+
+    MyFileFilter ff = new MyFileFilter();
+
+    jfc.setFileFilter(ff);
+    if (jfc.showSaveDialog(null) == 0) {
+      try {
+        File f = jfc.getSelectedFile();
+        ImageIO.write((RenderedImage) this.bg, "png", f);
+      } catch (Exception e1) {
+        System.out.println("Error saving file");
+
+        e1.printStackTrace();
+      }
+    }
+  }
   /**
    * Method generated by IntelliJ IDEA GUI Designer
    * >>> IMPORTANT!! <<<
