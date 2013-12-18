@@ -9,7 +9,11 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Shape;
 import java.awt.TexturePaint;
+import java.io.IOException;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 
 public class PaintGUI extends javax.swing.JFrame {
 
@@ -344,11 +348,19 @@ public class PaintGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void button_OpenPictureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_OpenPictureActionPerformed
-        // TODO add your handling code here:
+        OpenFile openFile = new OpenFile();
+        openFile.open();
+        try {
+            background = ImageIO.read(openFile.openedFile);
+        } catch (IOException e) {
+            Logger.getLogger(shapeField.getClass().getName()).log(Level.SEVERE,null, e);
+        }
+        repaint();
     }//GEN-LAST:event_button_OpenPictureActionPerformed
 
     private void button_SavePictureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_SavePictureActionPerformed
-        // TODO add your handling code here:
+        SaveFile saveFile = new SaveFile();
+        saveFile.save(background);
     }//GEN-LAST:event_button_SavePictureActionPerformed
 
     private void button_PrintPictureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_PrintPictureActionPerformed
@@ -376,7 +388,6 @@ public class PaintGUI extends javax.swing.JFrame {
 
     private void button_DrawOvalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_DrawOvalActionPerformed
         shapeObject = new drawing_OVAL();
-
         System.out.println("drawing_OVAL");
         System.out.println("shapeObject" + shapeObject);
     }//GEN-LAST:event_button_DrawOvalActionPerformed
@@ -456,7 +467,14 @@ public class PaintGUI extends javax.swing.JFrame {
         forgroundBase = forground.getGraphics();
         forgroundBase.drawImage(background, 0, 0, null);
 
-        shapeObject.drawShape(forgroundBase, x, y, w, h, return_shapeColor(), return_shapeStroke(), return_shapeFilled(), return_shapeAlpha(), return_shapeGradient(x,y,w,h), return_shapeTexture());
+        shapeObject.drawShape(forgroundBase, 
+                x, y, w, h, 
+                return_shapeColor(), 
+                return_shapeStroke(), 
+                return_shapeFilled(), 
+                return_shapeAlpha(), 
+                return_shapeGradient(x,y,w,h), 
+                return_shapeTexture());
 
         shapeField.getGraphics().drawImage(forground, 0, 0, null);
         if ((shapeObject instanceof drawing_FREE)) {
@@ -539,6 +557,10 @@ public class PaintGUI extends javax.swing.JFrame {
     }
     
     private BasicStroke return_shapeStroke(){
+     float[] fa = { 10.0F, 10.0F, 10.0F };
+     if (IS_shapeDashed.isSelected()) {
+       return new BasicStroke(strokeSlider.getValue(), 0, 2, 10.0F, fa, 10.0F);
+     }
         shapeStroke = new BasicStroke(strokeSlider.getValue());
         return shapeStroke;
     }
