@@ -7,13 +7,21 @@ import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.TexturePaint;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import java.awt.print.Book;
+import java.awt.print.PageFormat;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.io.IOException;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 public class PaintGUI extends javax.swing.JFrame {
 
@@ -25,13 +33,13 @@ public class PaintGUI extends javax.swing.JFrame {
     private Graphics forgroundBase, backgroundBase;
     private ShapeABS shapeObject;
     private boolean shapeFilled;
-    private Vector<ShapeABS> shapeContainer = new Vector<ShapeABS>();
     private float shapeAlpha;
     private GradientPaint shapeGradient;
     private TexturePaint shapeTexture;
     private Color colorPart1, colorPart2;
     private boolean gradientSelected = false;
 
+    
     /**
      * Creates new form PaintGUI
      */
@@ -283,6 +291,11 @@ public class PaintGUI extends javax.swing.JFrame {
         IS_shapeTexture.setFocusable(false);
         IS_shapeTexture.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         IS_shapeTexture.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+        IS_shapeTexture.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                IS_shapeTextureActionPerformed(evt);
+            }
+        });
         jToolBar1.add(IS_shapeTexture);
 
         jLabel1.setText("Alpha");
@@ -364,7 +377,23 @@ public class PaintGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_button_SavePictureActionPerformed
 
     private void button_PrintPictureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_PrintPictureActionPerformed
-        // TODO add your handling code here:
+     PrinterJob printerCall = PrinterJob.getPrinterJob();
+     PageFormat formatOFpage = printerCall.pageDialog(new PageFormat());
+     if (printerCall.printDialog())
+     {
+       PrinterHandler painter = new PrinterHandler(background);
+       Book wat = new Book();
+       wat.append(painter, formatOFpage);
+       printerCall.setPageable(wat);
+       try
+       {
+         printerCall.print();
+       }
+       catch (PrinterException e)
+       {
+         e.printStackTrace();
+       }
+     }
     }//GEN-LAST:event_button_PrintPictureActionPerformed
 
     private void button_DrawFreeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_DrawFreeActionPerformed
@@ -484,6 +513,20 @@ public class PaintGUI extends javax.swing.JFrame {
             backgroundBase.drawImage(forground, 0, 0, null);
         }
     }//GEN-LAST:event_shapeFieldMouseDragged
+
+    private void IS_shapeTextureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IS_shapeTextureActionPerformed
+        if (IS_shapeTexture.isSelected())
+           {
+             BufferedImage incTexture = new BufferedImage(164, 133, 6);
+             Graphics textureGraphics = incTexture.createGraphics();
+             ImageIcon textureFile = new ImageIcon(getClass().getResource("/Test/assets/old_map.png"));
+             Image textureImage  = textureFile.getImage();
+             textureGraphics.drawImage(textureImage, 0, 0, null);
+             Rectangle2D r2d = new Rectangle(164, 133);
+             shapeTexture = new TexturePaint(incTexture, r2d);
+           }
+           repaint();
+    }//GEN-LAST:event_IS_shapeTextureActionPerformed
 
     /**
      * @param args the command line arguments
